@@ -1,3 +1,11 @@
 <h1>
   {{title}}
 </h1>
+
+<button (click)="authorize()">Authorize</button>
+
+<ul>
+  <li *ngFor="let filter of filters | async">
+    {{filter | json}}
+  </li>
+</ul>
