@@ -1,0 +1,7 @@
+<h1>Filters</h1>
+
+<ul>
+    <li *ngFor="let filter of filters | async">
+        {{filter | json}}
+    </li>
+</ul>

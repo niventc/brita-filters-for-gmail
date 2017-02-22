@@ -1,11 +1,12 @@
-<h1>
-  {{title}}
-</h1>
+<nav class="navbar fixed-top navbar-inverse bg-inverse">
+  <a class="navbar-brand" href="#">
+    <i class="fa fa-filter"></i>Brita Filters
+  </a>
+  <form class="form-inline pull-right">
+    <user></user>
+  </form>
+</nav>
 
-<button (click)="authorize()">Authorize</button>
-
-<ul>
-  <li *ngFor="let filter of filters | async">
-    {{filter | json}}
-  </li>
-</ul>
+<div class="container-fluid">
+  <filter-list></filter-list>
+</div>
