@@ -1,6 +1,38 @@
-<span class="navbar-text">
-    <span>{{(user | async)?.email}}</span>
 
-    
-    <button class="btn btn-default" (click)="signIn()">Authorize</button>
-</span>
+<i class="fa fa-circle-o-notch fa-spin" 
+   style="font-size: 32px"
+   *ngIf="!(user | async)"></i>
+
+<button class="dropdown-item btn btn-sm btn-default" 
+        *ngIf="!(user | async)"
+        (click)="signIn()">
+    Authorize
+</button>
+
+<div ngbDropdown class="d-inlineb-block" *ngIf="(user | async)">
+    <img class="rounded-circle" 
+        style="height: 32px" 
+        [src]="(user | async)?.imageUrl"
+        ngbDropdownToggle>
+
+    <div class="dropdown-menu dropdown-menu-right">      
+
+        <div class="dropdown-header text-center">
+            <img class="rounded-circle img-fluid m-2" 
+                style="height: 96px"
+                [src]="(user | async)?.imageUrl">
+            <div class="m-2">
+                {{(user | async)?.firstName}} {{(user | async)?.lastName}}
+            </div>
+            <div class="m-2">
+                {{(user | async)?.email}}
+            </div>                
+
+            <button class="btn btn-default m-2" 
+                    style="cursor: pointer"
+                    (click)="signOut()">
+                Sign Out
+            </button>
+        </div>        
+    </div>
+</div>

@@ -7,7 +7,7 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
-    pictureUrl: string;
+    imageUrl: string;
 }
 
 @Injectable()
@@ -44,7 +44,7 @@ export class UserService {
                     email: basicProfile.getEmail(),
                     firstName: basicProfile.getGivenName(),
                     lastName: basicProfile.getFamilyName(),
-                    pictureUrl: basicProfile.getImageUrl()
+                    imageUrl: basicProfile.getImageUrl()
                 };
 
                 this._zone.run(() => this._user.next(user));

@@ -1,7 +1,4 @@
-<h1>Filters</h1>
-
-<ul>
-    <li *ngFor="let filter of filters | async">
-        {{filter | json}}
-    </li>
-</ul>
+<div class="list-group">
+    <div class="list-group-item list-group-item-action" *ngFor="let filter of filters | async" [filter]="filter">
+    </div>
+</div>

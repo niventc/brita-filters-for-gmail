@@ -103,9 +103,9 @@ declare namespace gapi {
     }
 
     export interface FilterAction {
-        addLabelIds: string[];
-        removeLabelIds: string[];
-        forward: string;
+        addLabelIds?: string[];
+        removeLabelIds?: string[];
+        forward?: string;
     }
 
     export interface ClientArguments {
