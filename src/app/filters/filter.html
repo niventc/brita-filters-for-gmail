@@ -6,3 +6,13 @@
 <div class="filter-criteria">
     {{filter.action | json}}
 </div>
+
+<div class="bg-primary text-white" *ngIf="filter.action && filter.action.addLabelIds">
+    Add: 
+        <label *ngFor="let label of filter.action.addLabelIds" 
+               [labelId]="label"></label>
+</div>
+
+<div *ngIf="filter.action && filter.action.removeLabelIds">
+    Remove: <label *ngFor="let label of filter.action.removeLabelIds" [labelId]="label"></label>
+</div>

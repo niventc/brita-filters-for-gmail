@@ -23,7 +23,9 @@ export class UserService {
         private _zone: NgZone,
         private _googleApi: GoogleApiService
     ) {
-        this.user = this._user.asObservable();
+        this.user = this._user.asObservable()
+            .publish()
+            .refCount();
 
         this._googleApi.service 
             .subscribe(x => {

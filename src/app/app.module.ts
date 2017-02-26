@@ -12,13 +12,16 @@ import { UserComponent } from "./users/user.component";
 import { FilterListComponent } from "./filters/filter-list.component";
 import { FilterProvider } from "./filters/filter.provider"; 
 import { FilterComponent } from "./filters/filter.component";
+import { LabelProvider } from "./labels/label.provider";
+import { LabelComponent } from "./labels/label.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     FilterListComponent,
-    FilterComponent
+    FilterComponent,
+    LabelComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { FilterComponent } from "./filters/filter.component";
   providers: [
     GoogleApiService,
     UserService,
-    FilterProvider
+    FilterProvider,
+    LabelProvider
   ],
   bootstrap: [AppComponent]
 })
