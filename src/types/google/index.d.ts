@@ -22,9 +22,20 @@ declare namespace gapi {
     }
 
     export interface CurrentUserService {
-        get(): void;
+        get(): BasicProfileService;
         listen(x: any): void;
         set(x: any): void;
+    }
+
+    export interface BasicProfileService {
+        getBasicProfile(): BasicProfile;
+    }
+
+    export interface BasicProfile {        
+        getEmail(): string;
+        getGivenName(): string;
+        getFamilyName(): string;
+        getImageUrl(): string;
     }
 
     export interface IsSignedInService {
@@ -42,7 +53,41 @@ declare namespace gapi {
     }
 
     export interface UsersService {
+        labels: LabelsService;
         settings: SettingsService;
+    }
+
+    export interface LabelsService {
+        create(): void;
+        delete(): void;
+        list(request: UserIdRequest): Promise<BaseResponse<ListLabelResponse>>;
+        update(): void;
+        get(): void;
+        patch(): void;
+    }
+
+    export interface ListLabelResponse {
+        labels: Label[];
+    }
+
+    export interface Label {
+        id: string;
+        name: string;
+        messageListVisibility: string;
+        labelListVisibility: string;
+        type: string;
+        messagesTotal: number;
+        messagesUnread: number;
+        threadsTotal: number;
+        threadsUnread: number;
+    }
+
+    export interface BaseResponse<T> {        
+        body: string;
+        headers: ResponseHeader;
+        result: T;
+        status: 200 | number;
+        statusText?: string;
     }
 
     export interface SettingsService {
@@ -53,19 +98,11 @@ declare namespace gapi {
         create(): void;
         delete(): void;
         get(): void;
-        list(request: UserIdRequest): Promise<FilterResponse>;
+        list(request: UserIdRequest): Promise<BaseResponse<FilterListResponse>>;
     }
 
     export interface UserIdRequest {
         userId: "me" | string;
-    }
-
-    export interface FilterResponse {
-        body: string;
-        headers: ResponseHeader;
-        result: FilterResponseBody;
-        status: 200 | number;
-        statusText?: string;
     }
 
     export interface ResponseHeader {
@@ -80,7 +117,7 @@ declare namespace gapi {
         vary: string;
     }
 
-    export interface FilterResponseBody {
+    export interface FilterListResponse {
         filter: Filter[];
     }
 

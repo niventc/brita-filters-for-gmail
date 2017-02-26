@@ -1,13 +1,16 @@
+import * as _ from "lodash";
+
 import { Injectable, NgZone } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
 
 import { GoogleApiService } from "../google-api.service";
 
 export interface User {
-    email: string;
-    firstName: string;
-    lastName: string;
-    imageUrl: string;
+    isSignedIn: boolean;
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    imageUrl?: string;
 }
 
 @Injectable()
@@ -28,27 +31,50 @@ export class UserService {
                     return;
                 }
 
-                x.auth2.getAuthInstance()
-                    .isSignedIn
-                    .listen(() => {
-                        //this.loadFilters();
-                    });
+                let authInstance = x.auth2.getAuthInstance();
 
-                let basicProfile = (<any>x.auth2
-                    .getAuthInstance())
-                    .currentUser
+                let basicProfile = authInstance.currentUser
                     .get()
                     .getBasicProfile();
 
-                let user = <User>{
-                    email: basicProfile.getEmail(),
-                    firstName: basicProfile.getGivenName(),
-                    lastName: basicProfile.getFamilyName(),
-                    imageUrl: basicProfile.getImageUrl()
-                };
+                if(_(basicProfile).isUndefined()) {                    
+                    this._zone.run(() => 
+                        this._user.next({
+                            isSignedIn: false
+                        }
+                    ));
+                } else {
+                    this.userIsSignedIn(basicProfile);
+                }
 
-                this._zone.run(() => this._user.next(user));
+                authInstance
+                    .isSignedIn
+                    .listen((isSignedIn) => {
+                        if(isSignedIn) {
+                            let basicProfile = x.auth2
+                                .getAuthInstance()
+                                .currentUser
+                                .get()
+                                .getBasicProfile();
+                            
+                            this.userIsSignedIn(basicProfile);
+                        } else {
+                            this._zone.run(() => this._user.next(null));
+                        }
+                    });
             });
+    }
+
+    private userIsSignedIn(basicProfile: gapi.BasicProfile): void {
+        let user = <User>{
+            isSignedIn: true,
+            email: basicProfile.getEmail(),
+            firstName: basicProfile.getGivenName(),
+            lastName: basicProfile.getFamilyName(),
+            imageUrl: basicProfile.getImageUrl()
+        };
+
+        this._zone.run(() => this._user.next(user));
     }
 
     public signIn(): void {        

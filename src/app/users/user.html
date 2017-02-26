@@ -1,17 +1,18 @@
 
 <i class="fa fa-circle-o-notch fa-spin" 
    style="font-size: 32px"
-   *ngIf="!(user | async)"></i>
+   *ngIf="isLoading"></i>
 
 <button class="dropdown-item btn btn-sm btn-default" 
-        *ngIf="!(user | async)"
+        style="cursor: pointer"
+        *ngIf="!isLoading && !(user | async)?.isSignedIn"
         (click)="signIn()">
-    Authorize
+    Sign In
 </button>
 
-<div ngbDropdown class="d-inlineb-block" *ngIf="(user | async)">
+<div ngbDropdown class="d-inlineb-block" *ngIf="!isLoading && (user | async)?.isSignedIn">
     <img class="rounded-circle" 
-        style="height: 32px" 
+        style="height: 32px; cursor: pointer" 
         [src]="(user | async)?.imageUrl"
         ngbDropdownToggle>
 
