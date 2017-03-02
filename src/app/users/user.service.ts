@@ -17,16 +17,15 @@ export interface User {
 export class UserService {
 
     private _user: BehaviorSubject<User> = new BehaviorSubject(null);
-    public user: Observable<User>;
+
+    public get user(): Observable<User> {
+        return this._user.asObservable();
+    };
 
     constructor(
         private _zone: NgZone,
         private _googleApi: GoogleApiService
     ) {
-        this.user = this._user.asObservable()
-            .publish()
-            .refCount();
-
         this._googleApi.service 
             .subscribe(x => {
                 if(x === null) {

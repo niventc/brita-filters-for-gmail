@@ -1,18 +1,38 @@
+<style>
+    span{
+        margin: -12px 0 -13px;
+        padding: 12px 12px 13px;
+    }
+</style>
 
-<div class="filter-criteria">
+
+<span class="filter-criteria">
     {{filter.criteria | json}}
-</div>
+</span>
 
-<div class="filter-criteria">
-    {{filter.action | json}}
-</div>
 
-<div class="bg-primary text-white" *ngIf="filter.action && filter.action.addLabelIds">
+<span class="bg-success text-white" *ngIf="filter.action && filter.action.forward">
+    Forward: {{filter.action.forward}}
+</span>
+
+<span class="bg-primary text-white" *ngIf="filter.action && filter.action.addLabelIds">
     Add: 
         <label *ngFor="let label of filter.action.addLabelIds" 
                [labelId]="label"></label>
-</div>
+</span>
 
-<div *ngIf="filter.action && filter.action.removeLabelIds">
-    Remove: <label *ngFor="let label of filter.action.removeLabelIds" [labelId]="label"></label>
-</div>
+<span class="bg-danger text-white" *ngIf="filter.action && filter.action.removeLabelIds">
+    Remove: 
+        <label *ngFor="let label of filter.action.removeLabelIds" 
+               [labelId]="label"></label>
+</span>
+
+
+<span class="bg-info text-white" *ngIf="filter.action && filter.action.skipInbox">
+    Skip Inbox
+</span>
+
+
+<span class="bg-warning text-white" *ngIf="filter.action && filter.action.markAsRead">
+    Mark as read
+</span>

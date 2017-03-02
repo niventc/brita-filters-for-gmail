@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
 
 import { environment } from "../environments/environment";
@@ -7,11 +7,14 @@ import { environment } from "../environments/environment";
 export class GoogleApiService {
 
     private _service: BehaviorSubject<gapi.GoogleApiService> = new BehaviorSubject(null);
-    public service: Observable<gapi.GoogleApiService>;
+    
+    public get service(): Observable<gapi.GoogleApiService> {
+        return this._service.asObservable();   
+    };
 
-    constructor() {
-        this.service = this._service.asObservable();
-
+    constructor(
+        private _zone: NgZone
+    ) {
         this.loadScript();
     }
 
@@ -42,7 +45,7 @@ export class GoogleApiService {
                 scope: environment.googleApi.scopes.join(" ")
             })
             .then(() => {
-                this._service.next(gapi);
+                this._zone.run(() => this._service.next(gapi));
             });
     }
 

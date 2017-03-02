@@ -5,12 +5,12 @@
 
 <button class="dropdown-item btn btn-sm btn-default" 
         style="cursor: pointer"
-        *ngIf="!isLoading && !(user | async)?.isSignedIn"
+        *ngIf="!isLoading && !!!(user | async)?.isSignedIn"
         (click)="signIn()">
     Sign In
 </button>
 
-<div ngbDropdown class="d-inlineb-block" *ngIf="!isLoading && (user | async)?.isSignedIn">
+<div ngbDropdown class="d-inline-block" *ngIf="!isLoading && !!(user | async)?.isSignedIn">
     <img class="rounded-circle" 
         style="height: 32px; cursor: pointer" 
         [src]="(user | async)?.imageUrl"

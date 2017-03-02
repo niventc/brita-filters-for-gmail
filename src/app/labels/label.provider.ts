@@ -7,17 +7,18 @@ import { GoogleApiService } from "../google-api.service";
 @Injectable()
 export class LabelProvider {
     
-    public labels: Observable<gapi.Label[]>;
     private _labels: BehaviorSubject<gapi.Label[]> = new BehaviorSubject(null);
+    
+    public get labels(): Observable<gapi.Label[]> {
+        return this._labels.asObservable();   
+    };
 
     constructor(
         private _userService: UserService,
         private _googleApi: GoogleApiService,
         private _zone: NgZone
     ) {
-        this.labels = this._labels.asObservable();
-
-        _userService.user.subscribe(user => {
+        this._userService.user.subscribe(user => {
             if(user.isSignedIn) {
                 _googleApi.service.subscribe(gapi => {
                     gapi.client.gmail.users.labels.list({
@@ -27,7 +28,7 @@ export class LabelProvider {
                     });
                 });
             }
-        })
+        });
     }
 
 }

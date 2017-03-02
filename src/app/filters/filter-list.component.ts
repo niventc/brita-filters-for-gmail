@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 
+import { UserService } from "../users/user.service";
 import { FilterProvider } from "./filter.provider";
 
 @Component({

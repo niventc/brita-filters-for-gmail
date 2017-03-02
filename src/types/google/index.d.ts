@@ -73,13 +73,13 @@ declare namespace gapi {
     export interface Label {
         id: string;
         name: string;
-        messageListVisibility: string;
-        labelListVisibility: string;
-        type: string;
-        messagesTotal: number;
-        messagesUnread: number;
-        threadsTotal: number;
-        threadsUnread: number;
+        messageListVisibility?: "show" | "hide" | string;
+        labelListVisibility?: "labelShow" | "labelHide" | string;
+        type: "user" | "system" | string;
+        messagesTotal?: number;
+        messagesUnread?: number;
+        threadsTotal?: number;
+        threadsUnread?: number;
     }
 
     export interface BaseResponse<T> {        
