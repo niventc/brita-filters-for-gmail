@@ -1,38 +1,44 @@
 <style>
-    span{
+    .row {
+        width: 100%;
+        margin: -12px -20px;
+    }
+
+    div{
         margin: -12px 0 -13px;
         padding: 12px 12px 13px;
     }
 </style>
 
-
-<span class="filter-criteria">
-    {{filter.criteria | json}}
-</span>
-
-
-<span class="bg-success text-white" *ngIf="filter.action && filter.action.forward">
-    Forward: {{filter.action.forward}}
-</span>
-
-<span class="bg-primary text-white" *ngIf="filter.action && filter.action.addLabelIds">
-    Add: 
-        <label *ngFor="let label of filter.action.addLabelIds" 
-               [labelId]="label"></label>
-</span>
-
-<span class="bg-danger text-white" *ngIf="filter.action && filter.action.removeLabelIds">
-    Remove: 
-        <label *ngFor="let label of filter.action.removeLabelIds" 
-               [labelId]="label"></label>
-</span>
+<div class="row">
+    <div class="col filter-criteria">
+        {{filter.criteria | json}}
+    </div>
 
 
-<span class="bg-info text-white" *ngIf="filter.action && filter.action.skipInbox">
-    Skip Inbox
-</span>
+    <div class="col bg-success text-white" *ngIf="filter.action && filter.action.forward">
+        Forward: {{filter.action.forward}}
+    </div>
+
+    <div class="col bg-primary text-white" *ngIf="filter.action && filter.action.addLabelIds">
+        Add: 
+            <label *ngFor="let label of filter.action.addLabelIds" 
+                [labelId]="label"></label>
+    </div>
+
+    <div class="col bg-danger text-white" *ngIf="filter.action && filter.action.removeLabelIds">
+        Remove: 
+            <label *ngFor="let label of filter.action.removeLabelIds" 
+                [labelId]="label"></label>
+    </div>
 
 
-<span class="bg-warning text-white" *ngIf="filter.action && filter.action.markAsRead">
-    Mark as read
-</span>
+    <div class="col-1 bg-info text-white" *ngIf="filter.action && filter.action.skipInbox">
+        Skip Inbox
+    </div>
+
+
+    <div class="col-1 bg-warning text-white" *ngIf="filter.action && filter.action.markAsRead">
+        Mark as read
+    </div>
+</div>
