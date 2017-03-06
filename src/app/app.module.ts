@@ -14,6 +14,7 @@ import { FilterProvider } from "./filters/filter.provider";
 import { FilterComponent } from "./filters/filter.component";
 import { LabelProvider } from "./labels/label.provider";
 import { LabelComponent } from "./labels/label.component";
+import { EmailListComponent } from "./filters/email-list.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LabelComponent } from "./labels/label.component";
     UserComponent,
     FilterListComponent,
     FilterComponent,
-    LabelComponent
+    LabelComponent,
+    EmailListComponent
   ],
   imports: [
     BrowserModule,

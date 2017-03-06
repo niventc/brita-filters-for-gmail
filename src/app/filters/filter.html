@@ -8,16 +8,36 @@
         margin: -12px 0 -13px;
         padding: 12px 12px 13px;
     }
+
+    .col {
+        flex-basis: auto;
+        flex-grow: unset;
+        width: auto;
+    }
+
+    .filter-criteria {
+        flex-grow: 1;
+        max-width: 80%;
+        overflow: hidden;
+    }
 </style>
 
 <div class="row">
     <div class="col filter-criteria">
-        {{filter.criteria | json}}
+        <span *ngIf="filter.criteria && filter.criteria.from">
+            From: <email-list [emails]="filterCriteriaFrom"></email-list>
+        </span>
+        <span *ngIf="filter.criteria && filter.criteria.to">
+            To: <email-list [emails]="filterCriteriaTo"></email-list>
+        </span>        
+        <span *ngIf="filter.criteria && filter.criteria.subject">
+            Subject: {{filter.criteria.subject | json}}
+        </span>
     </div>
 
 
     <div class="col bg-success text-white" *ngIf="filter.action && filter.action.forward">
-        Forward: {{filter.action.forward}}
+        Forward: <email-list [emails]="filterActionForward"></email-list>
     </div>
 
     <div class="col bg-primary text-white" *ngIf="filter.action && filter.action.addLabelIds">

@@ -2,6 +2,7 @@
 
 # config
 /src/environments/environment.*.ts
+/src/app/filters/sample.json
 
 # compiled output
 /dist
